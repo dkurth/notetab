@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Notepad</title>
+    <style>
+        body {
+            background: rgb(40, 41, 35);
+
+            /* text color */
+            color: rgb(248, 248, 242); /*white*/
+            color: rgb(249, 36, 114);  /*pink*/
+            color: rgb(166, 226, 43);  /*green*/
+            color: rgb(231, 219, 116); /*yellow*/
+            color: rgb(90, 183, 202);  /*blue*/
+
+            font-size: 14pt;
+            font-family: Consolas;
+        }
+        #editor {
+            border: solid #555 1px;
+            padding: 20px;
+            width: 80%;
+            height: 100%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor" contenteditable="true" spellcheck="false"></div>
+</body>
+<script>
+    // HT https://blog.jverkamp.com/2018/09/26/simple-localstorage-notepad/
+    (function() {
+        var editorKey = 'html5-notepad';
+        var editor = document.getElementById('editor');
+        var cache = localStorage.getItem(editorKey);
+
+        if (cache) {
+            editor.innerHTML = cache;
+        }
+
+        function autosave() {
+            var newValue = editor.innerHTML;
+            if (cache != newValue) {
+                cache = newValue;
+                localStorage.setItem(editorKey, cache);
+            }
+        }
+
+        editor.addEventListener('input', autosave);
+    })();
+</script>
+</html>
